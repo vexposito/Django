@@ -1,0 +1,33 @@
+{% extends 'base.html' %} <!-- HERENCIA DE PLANTILLAS -->
+{% block head_title %}
+	MSG_DB
+{% endblock %}
+
+{% block head %}
+	<h1> {{ titulo }} </h1>
+	<ul>
+		<li><a href='{% url "inicio" %}'> INICIO </a></li>
+		<li><a href='{% url "crear" %}'> CREAR BOT </a></li>
+		<li><a href='{% url "parar" %}'> PARAR HEBRA </a></li>
+		<li><a href='{% url "estado" %}'> ESTADO DEL BOT </a></li>
+	</ul>
+{% endblock %}
+
+<body>
+	{% block content %}
+
+
+        <table>
+            <tr>
+            <ul>
+	            {% for i in contenido %}
+	        		<li>{{ contenido.ID_MSG }} </li>
+	      		{% endfor %}
+			</ul>
+            </tr>
+
+        </table>
+
+	{% endblock %}
+</body>
+

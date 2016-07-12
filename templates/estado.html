@@ -1,0 +1,27 @@
+{% extends 'base.html' %} <!-- HERENCIA DE PLANTILLAS -->
+
+{% block head_title %}
+	ESTADO	<!-- TEXTO QUE APARECE EN LA PESTAÑA -->
+{% endblock %}
+
+{% block head %}
+	<h1> {{ titulo }} </h1>
+	<ul>
+		<li><a href='{% url "inicio" %}'> INICIO </a></li>
+		<li><a href='{% url "crear" %}'> CREAR BOT </a></li>
+		<li><a href='{% url "parar" %}'> PARAR HEBRA </a></li>		
+		<li><a href='{% url "msg_db" %}'> VISUALIZAR MENSAJES CAPTURADOS </a></li>
+	</ul>
+{% endblock %}
+
+<body>
+	{% block content %}
+		Introduzca el ID del BOT que quieres consultar.
+			{% if form %}  <!-- Para que aparezca el boton de registrar -->
+				<form method = 'POST' action = ''>{% csrf_token %}
+					{{ form.as_p}}
+					<input type = 'submit' value = 'Consultar'>
+				</form>
+			{% endif %}
+	{% endblock %}
+</body>
