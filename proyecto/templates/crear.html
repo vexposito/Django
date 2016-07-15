@@ -2,14 +2,19 @@
 {% block head_title %}
 	CREAR
 {% endblock %}
+{%block page_head%}
+    <div class="page-header">
+        <h1> {{ titulo }} </h1>
+    </div>
+{%endblock%}
 
 {% block head %}
-	<h1> {{ titulo }} </h1>
 	<ul>
 		<li><a href='{% url "inicio" %}'> INICIO </a></li>
 		<li><a href='{% url "parar" %}'> PARAR HEBRA </a></li>
 		<li><a href='{% url "estado" %}'> ESTADO DEL BOT </a></li>
 		<li><a href='{% url "msg_db" %}'> VISUALIZAR MENSAJES CAPTURADOS </a></li>
+		<div><hr></div>
 	</ul>
 {% endblock %}
 

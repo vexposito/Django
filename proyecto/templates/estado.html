@@ -3,19 +3,25 @@
 {% block head_title %}
 	ESTADO	<!-- TEXTO QUE APARECE EN LA PESTAÑA -->
 {% endblock %}
+{%block page_head%}
+    <div class="page-header">
+        <h1> {{ titulo }} </h1>
+    </div>
+{%endblock%}
 
 {% block head %}
-	<h1> {{ titulo }} </h1>
 	<ul>
 		<li><a href='{% url "inicio" %}'> INICIO </a></li>
 		<li><a href='{% url "crear" %}'> CREAR BOT </a></li>
 		<li><a href='{% url "parar" %}'> PARAR HEBRA </a></li>		
 		<li><a href='{% url "msg_db" %}'> VISUALIZAR MENSAJES CAPTURADOS </a></li>
+		<div><hr></div>
 	</ul>
 {% endblock %}
 
 <body>
 	{% block content %}
+	    <div id="freeow" class="freeow freeow-bottom-right"></div>
 		Introduzca el ID del BOT que quieres consultar.
 			{% if form %}  <!-- Para que aparezca el boton de registrar -->
 				<form method = 'POST' action = ''>{% csrf_token %}
@@ -23,5 +29,115 @@
 					<input type = 'submit' value = 'Consultar'>
 				</form>
 			{% endif %}
+
+			{%if estado%}
+				<p></p>
+				<div class="panel panel-primary">
+					<div class="panel-heading" >
+						<h3 class="panel-title">INFORMACIÓN DEL BOT </h3>
+						<h3 class="panel-title"> </h3>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 placeholder datos_item" >
+					<div class="panel panel-primary">
+					</div>
+
+					<br>
+					<div class="col-xs-12 col-sm-6 placeholder datos_item">
+						ID CONVERSACIÓN
+						<div class="panel panel-primary">
+							{{ID_CONVERS }}
+						</div>
+
+						<br>
+						<hr>
+
+					</div>
+
+					<div class="col-xs-12 col-sm-6 placeholder datos_item">
+						ID BOT
+						<div class="panel panel-primary">
+							{{ ID_BOT }}
+						</div>
+						<br>
+						<hr>
+
+					</div>
+					<div class="col-xs-12 col-sm-6 placeholder datos_item">
+						FECHA DE INICIO DEL BOT
+						<div class="panel panel-primary">
+							{{ INICIO }}
+						</div>
+
+						<br>
+						<hr>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 placeholder datos_item">
+						ÚLTIMA ACTUALIZACIÓN DEL BOT
+						<div class="panel panel-primary">
+							{{ ULTIMA }}
+						</div>
+						<br>
+						<hr>
+					</div>
+				</div>
+
+
+				<div class="col-xs-12 col-sm-6 placeholder datos_item" >
+					<div class="panel panel-primary">
+					</div>
+					<div class="col-xs-12 col-sm-6 placeholder datos_item">
+						SERVIDOR AL QUE SE CONECTA EL BOT
+						<div class="panel panel-primary">
+							{{ SERVIDOR }}
+						</div>
+						<br>
+						<hr>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 placeholder datos_item">
+						CANAL AL QUE SE CONECTA EL BOT
+						<div class="panel panel-primary">
+							{{ CANAL }}
+						</div>
+						<br>
+						<hr>
+					</div>	
+
+					<div class="col-xs-12 col-sm-6 placeholder datos_item">
+						NUMERO DE MENSAJES CAPTURADOS
+						<div class="panel panel-primary">
+							{{ NUM_MSG }}
+						</div>
+						<br>
+						<hr>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 placeholder datos_item">
+						ESTADO EN EL QUE SE ENCUENTRA EL BOT
+						<div class="panel panel-primary">
+							{{ ESTADO }}
+						</div>
+						<br>
+						<hr>
+					</div>
+				</div>
+
+				{% else %}
+
+				<strong>ID_BOT no encontrado.</strong>
+			{% endif %}
 	{% endblock %}
+
+
+  <div class="col-md-12 text-center">
+           <ul id="myPager" class="pagination"></ul>
+  </div>
+
+</div>
+    <br>
+    <br>
 </body>

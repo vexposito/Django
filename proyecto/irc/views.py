@@ -7,10 +7,10 @@ from django.template.context import RequestContext
 from .forms import FormularioCrearForm, FormularioPararForm, FormularioRegistroForm, SignUpForm, FormularioEstadoForm
 from .models import FormularioCrear, FormularioParar, FormularioRegistro, FormularioEstado
 from xmlrpclib      import * 
-import os
 from django.contrib import admin
 from django.db import connections
-
+import os
+import sqlite3
 
 ##########################################################################################
 ##################################### CONEXION ###########################################
@@ -109,15 +109,49 @@ def estado(request):
     "titulo": titulo,
     "form": form,
     }
+       
 
     if form.is_valid():
         instance = form.save(commit = False)
         ID_BOT = form.cleaned_data.get("ID_BOT")
         form.save()
-        estado = rpc.estado(ID_BOT)
 
+        con        = sqlite3.connect('C:/DjangoProyectos/irc.db')  #con_bd.close()
+        cursor     = con.cursor()  #cursor.close()
+        reintentar = False
+        print " OK!  DB Abierta."
+        cursor.execute("SELECT * FROM BOT_INFO WHERE  ID_BOT == '%s'" %(ID_BOT))
+        estado = cursor.fetchall()
+        
+        ID_CONVERS  = [row[0] for row in estado]
+        ID_BOT      = [row[1] for row in estado]
+        INICIO      = [row[2] for row in estado]
+        ULTIMA      = [row[3] for row in estado]
+        SERVIDOR    = [row[4] for row in estado]
+        CANAL       = [row[5] for row in estado]
+        EVENTOS     = [row[6] for row in estado]
+        NUM_MSG     = [row[7] for row in estado]
+        ESTADO      = [row[8] for row in estado]
+
+        con.close()
         context = {
-        "titulo": "Consulta el estado del BOT",
+        "titulo"    : "Consulta el estado del BOT",
+        "form"      : form,
+        "estado"    : estado,
+        "ID_CONVERS": ID_CONVERS,
+        "ID_BOT"    : ID_BOT,
+        "INICIO"    : INICIO,
+        "ULTIMA"    : ULTIMA,
+        "SERVIDOR"  : SERVIDOR,
+        "CANAL"     : CANAL,
+        "EVENTOS"   : EVENTOS,
+        "NUM_MSG"   : NUM_MSG,
+        "ESTADO"    : ESTADO,
+        }
+
+    else:
+        context = {
+        "titulo": titulo,
         "form": form,
         }
 
@@ -126,26 +160,51 @@ def estado(request):
 @login_required()
 def msg_db(request):
     titulo = "Visualizacion de los mensajes capturados por los BOT"
-    cursor = connections['irc'].cursor()
-    datos = cursor.execute("SELECT ID_MSG, FECHA, CANAL, SERVIDOR, USUARIO, MENSAJE FROM MENSAJES")
-    posts = cursor.fetchall()
-    contenido = {}
-
-    for i in datos:
-        contenido = {
-        "ID_MSG"    : i[0],
-        "FECHA"     : i[1],
-        "FECHA"     : i[1],
-        "CANAL"     : i[2],
-        "SERVIDOR"  : i[3],
-        "USUARIO"   : i[4],
-        "MENSAJE"   : i[5],
-        } 
+    form = FormularioEstadoForm(request.POST or None) 
     context = {
-    'titulo': titulo,
-    'posts': posts,
-    'contenido': contenido,
+    "titulo": titulo,
+    "form": form,
     }
+
+    if form.is_valid():
+        instance = form.save(commit = False)
+        ID_MSG = form.cleaned_data.get("ID_BOT")
+        form.save()
+        con        = sqlite3.connect('C:/DjangoProyectos/irc.db')  #con_bd.close()
+        cursor     = con.cursor()  #cursor.close()
+        reintentar = False
+        print " OK!  DB Abierta."
+        cursor.execute("SELECT * FROM MENSAJES WHERE  ID_MSG == '%s'" %(ID_BOT))
+        estado = cursor.fetchall()
+        
+        ID_MSG      = [row[0] for row in estado]
+        FECHA       = [row[1] for row in estado]
+        CANAL       = [row[2] for row in estado]
+        SERVIDOR    = [row[3] for row in estado]
+        USUARIO     = [row[4] for row in estado]
+        MENSAJE     = [row[5] for row in estado]
+
+        con.close()
+        context = {
+        "titulo"    : "Consulta el estado del BOT",
+        "form"      : form,
+        "estado"    : estado,
+        "ID_MSG"    : ID_MSG,
+        "FECHA"     : FECHA,
+        "CANAL"     : CANAL,
+        "SERVIDOR"  : SERVIDOR,
+        "USUARIO"   : USUARIO,
+        "MENSAJE"   : MENSAJE,
+
+        }
+
+    else:
+        context = {
+        "titulo"    : titulo,
+        "form"      : form,
+
+        }
+
     # Pasamos al template el diccionario como si fuera un queryset normal
     return render(request,"msg_db.html", context)
 
@@ -155,13 +214,14 @@ def msg_db(request):
 ##########################################################################################
 ##################################### REGISTRO ###########################################
 ##########################################################################################
-@login_required()
-def home(request):
-    return render_to_response('inicio.html', {'user': request.user}, context_instance=RequestContext(request))
 
 #   Dicha vista se ocupara unicamente de redirigir a la plantilla de la pagina de inicio:
 def main(request):
-    return render_to_response('main.html', {}, context_instance=RequestContext(request))
+    titulo = "MENU DE INICIO" 
+    context = {
+    "titulo": titulo,
+    }
+    return render(request,'main.html', context)
 
 
 
@@ -170,6 +230,8 @@ def main(request):
  # como por ejemplo que el nombre del usuario ya exista en la base de datos o que la direccion 
  # de correo introducida sea incorrecta, el usuario sera informado:
 def signup(request):
+    titulo = "REGISTRO" 
+
     if request.method == 'POST':  # If the form has been submitted...
         form = SignUpForm(request.POST)  # A form bound to the POST data
         if form.is_valid():  # All validation rules pass
@@ -196,7 +258,8 @@ def signup(request):
         form = SignUpForm()
  
     data = {
-        'form': form,
+    "titulo": titulo,    
+    'form': form,
     }
     return render(request,'signup.html',  data)
 

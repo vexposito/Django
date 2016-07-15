@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
  
+{%block page_head%}
+    <div class="page-header">
+        <h1> {{ titulo }} </h1>
+    </div>
+{%endblock%}
+ 
 {% block head_title %}
 MENU
 {% endblock %}
@@ -11,12 +17,18 @@ MENU
 		<li><a href='{% url "parar" %}'> PARAR HEBRA </a></li>
 		<li><a href='{% url "estado" %}'> ESTADO DEL BOT </a></li>		
 		<li><a href='{% url "msg_db" %}'> VISUALIZAR MENSAJES CAPTURADOS </a></li>
+		<div><hr></div>
 	</ul>
 </body>
 
 {% block content %}
- 
-    <a href="{% url 'signup' %}">Sign Up</a>
-    <a href="{% url 'login' %}">Login</a>
+<button>
+ 	    <a href="{% url 'signup' %}">Registro</a>
+</button>
+
+<button>
+	<a href="{% url 'login' %}">Acceso</a>
+</button>
+    
  
 {% endblock %}
