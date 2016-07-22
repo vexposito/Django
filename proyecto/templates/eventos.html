@@ -1,0 +1,83 @@
+{% extends 'base.html' %} <!-- HERENCIA DE PLANTILLAS -->
+{% load static %}
+{% block head_title %}
+	EVENTOS
+{% endblock %}
+
+{%block page_head%}
+    <div class="page-header">
+        <h1> {{ titulo }} </h1>
+    </div>
+{%endblock%}
+
+{% block head %}
+	<ul>
+		<li><a href='{% url "inicio" %}'> INICIO </a></li>
+		<li><a href='{% url "crear" %}'> CREAR BOT </a></li>
+		<li><a href='{% url "parar" %}'> PARAR BOT </a></li>
+		<li><a href='{% url "bot_info" %}'> INFORMACIÓN DEL BOT </a></li>		
+		<li><a href='{% url "mensajes" %}'> VISUALIZAR MENSAJES CAPTURADOS </a></li>		
+		<li><a href='{% url "eventos" %}'> VISUALIZAR EVENTOS GENERADOS </a></li>
+		<div><hr></div>
+	</ul>
+{% endblock %}
+
+<body>
+	{% block content %}
+	    <div id="freeow" class="freeow freeow-bottom-right"></div>
+		Introduzca el ID del BOT que quieres consultar.
+			{% if form %}  <!-- Para que aparezca el boton de registrar -->
+				<form method = 'POST' action = ''>{% csrf_token %}
+					{{ form.as_p}}
+					<input type = 'submit' value = 'Consultar'>
+				</form>
+			{% endif %}
+
+			{% if estado %}
+				<p></p>
+				<table class = "table" border="1" >
+				<div class="panel panel-primary"> <!-- Le da el contorno al titulo -->
+					<div class="panel-heading" >  <!-- Le da el color al banner del titulo -->
+						<h3 class="panel-title">EVENTOS GENERADOS POR EL BOT </h3>					
+					    <thead class = "panel panel-primary" >
+					       <tr>
+					    	{% for k in titulillos %}
+					         <th scope="col">{{ k }}</th>
+					        {% endfor %}
+					        <div class="panel-title">	
+					       </tr>
+					       	</div>
+					    </thead>
+					    <tbody class = "panel panel-primary" cellpadding="20px">
+					       <tr>
+					       {% for i in AUX %}
+					       {% for j in i%}
+					         <td>{{j}}</td>
+					         {% endfor %}
+					         <tr></tr>
+					         {% endfor %}
+					       </tr>
+					    </tbody>
+				</table >
+
+
+					</div>	
+				</div>
+				{% else %}
+				<p><tr><strong>ID_BOT no encontrado.</strong></tr></p>
+			{% endif %}
+
+
+
+
+
+	{% endblock %}
+
+<!--   <div class="col-md-12 text-center">
+           <ul id="myPager" class="pagination"></ul>
+  </div> -->
+
+</div>
+    <br>
+    <br>
+</body>

@@ -11,9 +11,11 @@
 {% block head %}
 	<ul>
 		<li><a href='{% url "inicio" %}'> INICIO </a></li>
-		<li><a href='{% url "parar" %}'> PARAR HEBRA </a></li>
-		<li><a href='{% url "estado" %}'> ESTADO DEL BOT </a></li>
-		<li><a href='{% url "msg_db" %}'> VISUALIZAR MENSAJES CAPTURADOS </a></li>
+		<li><a href='{% url "crear" %}'> CREAR BOT </a></li>
+		<li><a href='{% url "parar" %}'> PARAR BOT </a></li>
+		<li><a href='{% url "bot_info" %}'> INFORMACIÓN DEL BOT </a></li>		
+		<li><a href='{% url "mensajes" %}'> VISUALIZAR MENSAJES CAPTURADOS </a></li>		
+		<li><a href='{% url "eventos" %}'> VISUALIZAR EVENTOS GENERADOS </a></li>
 		<div><hr></div>
 	</ul>
 {% endblock %}

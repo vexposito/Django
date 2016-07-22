@@ -16,18 +16,22 @@ Including another URLconf
 from django.conf.urls import url, patterns
 from django.contrib import admin
 from django.contrib.auth.views import login, logout # Para usar la vista que nos proporciona Django
-
 from irc import views
 
 
 urlpatterns = [
+#   ADMINISTRACON
     url(r'^admin/', admin.site.urls),
+#   FUNCIONES GENERALES
     url(r'^$', views.main, name = 'main'),
     url(r'^inicio/$', views.inicio, name = 'inicio'),
     url(r'^crear/$', views.crear, name = 'crear'),
     url(r'^parar/$', views.parar, name = 'parar'),
-    url(r'^estado/$', views.estado, name = 'estado'),
-    url(r'^msg_db/$', views.msg_db, name = 'msg_db'),   
+#   CONSULTA DB 
+    url(r'^bot_info/$', views.bot_info, name = 'bot_info'),
+    url(r'^mensajes/$', views.mensajes, name = 'mensajes'), 
+    url(r'^eventos/$', views.eventos, name = 'eventos'), 
+#   REGISTRO USUARIOS 
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^logout$', logout, {'template_name': 'main.html', }, name="logout"),
     url(r'^login/$', login, {'template_name': 'login.html', }, name="login"),

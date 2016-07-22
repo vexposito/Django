@@ -14,6 +14,14 @@ body {
     padding-left: 15px;
 }
 
+table {
+    border-spacing: 0;
+    display: flex;/*Se ajuste dinamicamente al tamano del dispositivo**/
+    overflow-y: auto; /**El scroll verticalmente cuando sea necesario*/
+    overflow-x: hidden;/*Sin scroll horizontal*/
+    table-layout: fixed;/**Forzamos a que las filas tenga el mismo ancho**/
+    border:1px solid gray;
+}
 
 .head_title {
 	margin-left: 20px;
@@ -45,8 +53,6 @@ h1, h2, h3, h4 {
 
 .panel-primary > .panel-heading {
 
-
-
 background: rgba(168,0,119,1);
 background: -moz-linear-gradient(left, rgba(168,0,119,1) 0%, rgba(168,0,119,1) 49%, rgba(202,94,178,1) 99%, rgba(203,96,179,1) 100%);
 background: -webkit-gradient(left top, right top, color-stop(0%, rgba(168,0,119,1)), color-stop(49%, rgba(168,0,119,1)), color-stop(99%, rgba(202,94,178,1)), color-stop(100%, rgba(203,96,179,1)));
@@ -59,13 +65,4 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a80077', end
   border-color:rgba(203,96,179,1);
 
 }
-.datos_item{
-  color:#fff
-}
 
-.lista{
-  color:#111
-}
-.correo{
-  color:#fff
-}
