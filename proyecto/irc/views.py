@@ -3,10 +3,16 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+
+from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
+
+
 from django.template.context import RequestContext
 from .forms import FormularioCrearForm, FormularioPararForm, FormularioRegistroForm, SignUpForm, FormularioEstadoForm
 from .models import FormularioCrear, FormularioParar, FormularioRegistro, FormularioEstado
-from xmlrpclib      import * 
+from xmlrpclib import *
 from django.contrib import admin
 from django.db import connections
 import os

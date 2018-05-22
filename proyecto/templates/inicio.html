@@ -1,73 +1,79 @@
 {% extends 'base.html' %} <!-- HERENCIA DE PLANTILLAS -->
 
 {% block head_title %}
-    INICIO
+INICIO
 {% endblock %}
 
 {%block page_head%}
-    <div class="page-header">
-        <h1> {{ titulo }} </h1>
-    </div>
-{%endblock%}
+<div class="page-header">
+    <h1> {{ titulo }} </h1>
+</div>
+{% endblock %}
 
 {% block head %}
-    <ul>
-        <li><a href='{% url "inicio" %}'> INICIO </a></li>
-        <li><a href='{% url "crear" %}'> CREAR BOT </a></li>
-        <li><a href='{% url "parar" %}'> PARAR BOT </a></li>
-        <li><a href='{% url "bot_info" %}'> INFORMACIÓN DEL BOT </a></li>       
-        <li><a href='{% url "mensajes" %}'> VISUALIZAR MENSAJES CAPTURADOS </a></li>        
-        <li><a href='{% url "eventos" %}'> VISUALIZAR EVENTOS GENERADOS </a></li>
-        <div><hr></div>
-    </ul>
+<ul>
+    <li><a href='{% url "inicio" %}'> INICIO </a></li>
+    <li><a href='{% url "crear" %}'> CREAR BOT </a></li>
+    <li><a href='{% url "parar" %}'> PARAR BOT </a></li>
+    <li><a href='{% url "bot_info" %}'> INFORMACIÓN DEL BOT </a></li>
+    <li><a href='{% url "mensajes" %}'> VISUALIZAR MENSAJES CAPTURADOS </a></li>
+    <li><a href='{% url "eventos" %}'> VISUALIZAR EVENTOS GENERADOS </a></li>
+    <br><button type="submit"><a href='{% url "login" %}'> LOGOUT </a></button>
+
+    <div>
+        <hr>
+    </div>
+</ul>
 {% endblock %}
 
 {% block content %}
-    Bienvenido. 
-    <body>
-        <p>Estos son sus datos:</p>
-        <table>
-            <tr>
-                <td>USUARIO: {{ user.username.label_tag }}</td>
-                <td>{{ user.username }}</td>
-            </tr>
+Bienvenido.
+<body>
+<p>Estos son sus datos:</p>
+<table>
+    <tr>
+        <td>USUARIO: {{ user.username.label_tag }}</td>
+        <td>{{ user.username }}</td>
+    </tr>
 
-            <tr>
-                <td>EMAIL: {{ user.email.label_tag }}</td>
-                <td>{{ user.email }}</td>
-            </tr>
+    <tr>
+        <td>EMAIL: {{ user.email.label_tag }}</td>
+        <td>{{ user.email }}</td>
+    </tr>
 
-            <tr>
-                <td>NOMBRE: {{ user.first_name.label_tag }}</td>
-                <td>{{ user.first_name }}</td>
-            </tr>
+    <tr>
+        <td>NOMBRE: {{ user.first_name.label_tag }}</td>
+        <td>{{ user.first_name }}</td>
+    </tr>
 
-            <tr>
-                <td>APELLIDOS: {{ user.last_name.label_tag }}</td>
-                <td>{{ user.last_name }}</td>
-            </tr>
+    <tr>
+        <td>APELLIDOS: {{ user.last_name.label_tag }}</td>
+        <td>{{ user.last_name }}</td>
+    </tr>
 
-            <tr>
-                <td>REGISTRO: {{ user.date_joined.label_tag }}</td>
-                <td>{{ user.date_joined }}</td>
-            </tr>
+    <tr>
+        <td>REGISTRO: {{ user.date_joined.label_tag }}</td>
+        <td>{{ user.date_joined }}</td>
+    </tr>
 
-            <tr>
-                <td>ÚLTIMO ACCESO: {{ user.last_login.label_tag }}</td>
-                <td>{{ user.last_login }}</td>
-            </tr>
+    <tr>
+        <td>ÚLTIMO ACCESO: {{ user.last_login.label_tag }}</td>
+        <td>{{ user.last_login }}</td>
+    </tr>
 
-        </table>
-        <hr>
-    </body>
-
-    <!-- {% if form %}   -->
-        <!-- Para que aparezca el boton de registrar -->
-        <!-- <form method = 'POST' action = ''>{% csrf_token %} -->
-            <!-- {{ form.as_p }}  -->
-            <!-- <input type = 'submit' value = 'Añadir información'> -->
-        <!-- </form> -->
-    <!-- {% endif %} -->
-
+</table>
+<hr>
+</body>
 {% endblock %}
+
+
+<!-- {% if form %}   -->
+<!-- Para que aparezca el boton de registrar -->
+<!-- <form method = 'POST' action = ''>{% csrf_token %} -->
+<!-- {{ form.as_p }}  -->
+<!-- <input type = 'submit' value = 'Añadir información'> -->
+<!-- </form> -->
+<!-- {% endif %} -->
+
+
 

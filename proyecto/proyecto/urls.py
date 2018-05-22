@@ -13,11 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.views import login, logout # Para usar la vista que nos proporciona Django
 from irc import views
-
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
 #   ADMINISTRACON
@@ -29,10 +29,18 @@ urlpatterns = [
     url(r'^parar/$', views.parar, name = 'parar'),
 #   CONSULTA DB 
     url(r'^bot_info/$', views.bot_info, name = 'bot_info'),
-    url(r'^mensajes/$', views.mensajes, name = 'mensajes'), 
-    url(r'^eventos/$', views.eventos, name = 'eventos'), 
+    url(r'^mensajes/$', views.mensajes, name = 'mensajes'),
+    url(r'^eventos/$', views.eventos, name = 'eventos'),
 #   REGISTRO USUARIOS 
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^logout$', logout, {'template_name': 'main.html', }, name="logout"),
-    url(r'^login/$', login, {'template_name': 'login.html', }, name="login"),
+    url(r'^login/$', auth_views.login,{'template_name': 'login.html', }, name="login")
 ]
+
+
+## Quitar
+#  el pattern, no existe en la version actual,
+# {'template_name': 'login.html', }
+
+
+
