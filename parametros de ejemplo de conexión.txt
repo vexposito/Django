@@ -1,0 +1,6 @@
+
+#patron		= ['hola','bien']
+#servidor	= "irc.irc-hispano.org"
+#canal		= "#ircUsusario" --> Crea canal si no existe
+#nombre		= "__Aliiicia36"
+#puerto		= 6667
