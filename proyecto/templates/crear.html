@@ -1,36 +1,41 @@
 {% extends 'base.html' %} <!-- HERENCIA DE PLANTILLAS -->
 {% block head_title %}
-	CREAR
+CREAR
 {% endblock %}
 {%block page_head%}
-    <div class="page-header">
-        <h1> {{ titulo }} </h1>
-    </div>
+<div class="page-header">
+    <h1> {{ titulo }} </h1>
+</div>
 {%endblock%}
 
 {% block head %}
-	<ul>
-		<li><a href='{% url "inicio" %}'> INICIO </a></li>
-		<li><a href='{% url "crear" %}'> CREAR BOT </a></li>
-		<li><a href='{% url "parar" %}'> PARAR BOT </a></li>
-		<li><a href='{% url "bot_info" %}'> INFORMACIÓN DEL BOT </a></li>		
-		<li><a href='{% url "mensajes" %}'> VISUALIZAR MENSAJES CAPTURADOS </a></li>		
-		<li><a href='{% url "eventos" %}'> VISUALIZAR EVENTOS GENERADOS </a></li>
-		<div><hr></div>
-	</ul>
+<ul>
+    <li><a href='{% url "inicio" %}'> INICIO </a></li>
+    <li><a href='{% url "crear" %}'> CREAR BOT </a></li>
+    <li><a href='{% url "parar" %}'> PARAR BOT </a></li>
+    <li><a href='{% url "bot_info" %}'> INFORMACIÓN DEL BOT </a></li>
+    <li><a href='{% url "mensajes" %}'> VISUALIZAR MENSAJES CAPTURADOS </a></li>
+    <li><a href='{% url "eventos" %}'> VISUALIZAR EVENTOS GENERADOS </a></li>
+    <br>
+    <button type="submit"><a href='{% url "login" %}'> LOGOUT </a></button>
+
+    <div>
+        <hr>
+    </div>
+</ul>
 {% endblock %}
 
 <body>
-	{% block content %}
-		Introduzca los valores necesarios para lanzar el Bot.
-		<p>Si quieres buscar varios patrones, introducelos separados por comas.</p>
+{% block content %}
+Introduzca los valores necesarios para lanzar el Bot.
+<p>Si quieres buscar varios patrones, introduzcalos separados por comas.</p>
 
-		{% if form %}  <!-- Para que aparezca el boton de registrar -->
-			<form method = 'POST' action = ''>{% csrf_token %}
-				{{ form.as_p}}
-				<input type = 'submit' value = 'Crear'>
-			</form>
-		{% endif %}
-	{% endblock %}
+{% if form %}  <!-- Para que aparezca el boton de registrar -->
+<form method='POST' action=''>{% csrf_token %}
+    {{ form.as_p}}
+    <input type='submit' value='Crear'>
+</form>
+{% endif %}
+{% endblock %}
 </body>
 
